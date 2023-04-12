@@ -6,7 +6,7 @@ class Books < ActiveRecord::Migration[6.1]
       t.date :date_of_publication
       t.integer :quantity
       t.integer :price
-      
+            
       t.timestamps
     end
   end
