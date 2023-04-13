@@ -130,4 +130,37 @@ class ApplicationController < Sinatra::Base
 
     status 204
   end
+
+  get "/books/:id/reviews" do
+    @book = Book.find_by(id: params[:id])
+    halt 404, "Record not found" if @book.nil?
+
+    @book.reviews.load
+
+    @book.reviews.to_json
+  end
+
+  post "/books/:book_id/reviews" do
+    @book = Book.find_by(id: params[:book_id])
+    halt 404, "Record not found" if @book.nil?
+
+    @review =
+      @book.reviews.create(
+        user_id: params["user_id"],
+        comment: params["comment"],
+        rating: params["rating"]
+      )
+
+    @review.to_json
+  end
+
+  delete "/books/:book_id/reviews/:review_id" do
+    @book = Book.find_by(id: params[:book_id])
+    halt 404, "Record not found" if @book.nil?
+
+    @review = @book.reviews.find(params[:review_id])
+    @review.destroy
+
+    status 204
+  end
 end

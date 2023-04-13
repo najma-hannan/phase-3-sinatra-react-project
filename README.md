@@ -71,4 +71,4 @@ Returns HTTP status 204 - No Content
 - [x] User
 - [x] Author
 - [ ] Order
-- [ ] Review
+- [x] Review
