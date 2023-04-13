@@ -67,4 +67,8 @@ input: <book attributes>, author_id
 - [ ] DELETE /books/<id> -- delete book with specified id
 Returns HTTP status 204 - No Content
 
-> Repeat the same for User, Author, Review, Orders
+*Repeat the same for:*
+- [x] User
+- [x] Author
+- [ ] Order
+- [ ] Review
