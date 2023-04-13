@@ -1,4 +1,4 @@
 class OrderItem < ActiveRecord::Base
   belongs_to :order
-  has_many :books
+  belongs_to :book
 end

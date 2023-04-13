@@ -163,4 +163,50 @@ class ApplicationController < Sinatra::Base
 
     status 204
   end
+
+  #? Order routes
+  get "/users/:user_id/orders" do
+    @user = User.find_by(id: params[:user_id])
+    halt 404, "User not found" if @user.nil?
+
+    @user.orders.to_json
+  end
+
+  post "/users/:user_id/orders" do
+    @user = User.find_by(id: params[:user_id])
+    halt 404, "User not found" if @user.nil?
+
+    @order = @user.orders.create()
+
+    params[:order_items].each do |item_params|
+      @book = Book.find_by(id: item_params[:book_id])
+      halt 422, { errors: { book_id: "Book not found" } }.to_json if @book.nil?
+
+      @order.order_items.create(
+        book: @book,
+        quantity: item_params[:quantity],
+        price: @book.price
+      )
+    end
+
+    @order.to_json
+  end
+
+  get "/users/:user_id/orders/:order_id" do
+    @order =
+      Order.where(user_id: params[:user_id], id: params[:order_id]).first()
+    halt 404, "Record not found" if @order.nil?
+
+    @order.to_json
+  end
+
+  delete "/users/:user_id/orders/:order_id" do
+    @order =
+      Order.where(user_id: params[:user_id], id: params[:order_id]).first()
+    halt 404, "Record not found" if @order.nil?
+
+    @order.destroy
+
+    status 204
+  end
 end
