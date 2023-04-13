@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2023_04_12_204630) do
     t.index ["name"], name: "unique_author_names", unique: true
   end
 
-  create_table "authors_books", force: :cascade do |t|
+  create_table "authors_books", id: false, force: :cascade do |t|
     t.integer "author_id"
     t.integer "book_id"
     t.index ["author_id"], name: "index_authors_books_on_author_id"
