@@ -55,16 +55,16 @@
 
 ## Books endpoints
 
-- [ ] GET /books -- fetch a list of books
+- [x] GET /books -- fetch a list of books
 book record schema: all book attributes, author:
-- [ ] POST /books -- create book record
+- [x] POST /books -- create book record
 input: <all book details without primary key (id)>, author_id
-- [ ] GET /books/<id> -- fetch a book with the specified id
+- [x] GET /books/<id> -- fetch a book with the specified id
 book records should includes a list of reviews
 returns the newly created record with a HTTP status 201
-- [ ] PUT /books/<id> -- update book details for the specified id
-input: <book attributes>, author_id
-- [ ] DELETE /books/<id> -- delete book with specified id
+- [x] PATCH /books/<id> -- update book details for the specified id
+input: <book attributes>, author_ids
+- [x] DELETE /books/<id> -- delete book with specified id
 Returns HTTP status 204 - No Content
 
 *Repeat the same for:*
