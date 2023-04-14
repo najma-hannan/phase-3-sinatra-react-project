@@ -1,8 +1,18 @@
 puts "🌱 Seeding records..."
 
 # Seed users
+User.create(
+  name: "Morrie Morrison",
+  email: "user@example.net",
+  password: "pass"
+)
+
 3.times do
-  User.create(name: Faker::Name.name, email: Faker::Internet.unique.safe_email)
+  User.create(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.safe_email,
+    password: "pass"
+  )
 end
 
 # Seed authors
