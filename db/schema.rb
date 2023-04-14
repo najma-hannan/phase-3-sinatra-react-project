@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 2023_04_12_204630) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
+    t.string "password_hash"
+    t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "unique_emails", unique: true

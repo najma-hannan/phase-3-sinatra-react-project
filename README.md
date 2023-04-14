@@ -70,5 +70,8 @@ Returns HTTP status 204 - No Content
 *Repeat the same for:*
 - [x] User
 - [x] Author
-- [ ] Order
+- [x] Order
 - [x] Review
+
+- [ ] Setup basic authentication for routes that require user
+- [ ] Add password field to User

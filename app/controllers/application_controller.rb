@@ -1,9 +1,32 @@
-class ApplicationController < Sinatra::Base
-  set :default_content_type, "application/json"
+class PublicController < Sinatra::Base
+  # ?Authentication
+  post "/login" do
+    user = User.find_by(email: params["email"])
+
+    if user.nil? || (user.password != params[:password])
+      halt 422,
+           {
+             errors: {
+               email: "Provide a correct email and password."
+             }
+           }.to_json
+    end
+    user.generate_token!
+    user.to_json
+  end
 
   # ?User routes
   post "/users" do
-    @user = User.create(name: params["name"], email: params["email"])
+    if User.exists?(email: params["email"])
+      halt 422, { errors: { email: "Email address already exists." } }.to_json
+    end
+
+    @user =
+      User.create(
+        name: params["name"],
+        email: params["email"],
+        password: params["password"]
+      )
 
     @user.to_json
   end
@@ -209,4 +232,20 @@ class ApplicationController < Sinatra::Base
 
     status 204
   end
+end
+
+class AuthenticatedController < Sinatra::Base
+  use AuthTokenMiddleware
+
+  get "/profile" do
+    user = request.env[:current_user]
+
+    user.to_json
+  end
+end
+
+class ApplicationController < Sinatra::Base
+  set :default_content_type, "application/json"
+  use PublicController
+  use AuthenticatedController
 end
