@@ -1,4 +1,6 @@
 class PublicController < Sinatra::Base
+  set :default_content_type, "application/json"
+
   # ?Authentication
   post "/login" do
     user = User.find_by(email: params["email"])
@@ -235,6 +237,7 @@ class PublicController < Sinatra::Base
 end
 
 class AuthenticatedController < Sinatra::Base
+  set :default_content_type, "application/json"
   use AuthTokenMiddleware
 
   get "/profile" do
@@ -245,7 +248,6 @@ class AuthenticatedController < Sinatra::Base
 end
 
 class ApplicationController < Sinatra::Base
-  set :default_content_type, "application/json"
   use PublicController
   use AuthenticatedController
 end
